@@ -29,9 +29,8 @@ function index(){
 
         // echo "<pre>";print_r($array['results']);die;
         
-
+        $id = 1;
         foreach ($array["results"] as $item ) {
-            // $id = 1;
             $response = $client->request('GET', $item["url"]);
             $statusCodes = $response->getStatusCode(); // Mendapatkan status code dari response
             $bodys = $response->getBody();
@@ -39,14 +38,13 @@ function index(){
             // echo "<pre>";print_r($arrays["weight"]);die;
 
             if (floatval($arrays['weight']) >= 100) {
-                            
-            // }
-            $url = $item["url"];
-            $segments = explode('/', trim($url, '/'));
-            $id = array_pop($segments);
-            // echo "<pre>";print_r($nilai);die;
+                          
+                $url = $item["url"];
+                $segments = explode('/', trim($url, '/'));
+                // $id = array_pop($segments);
+                // echo "<pre>";print_r($nilai);die;
 
-            $totalStat = 0;
+                $totalStat = 0;
                 foreach ($arrays["stats"] as $stat) {
                     
                     if (floatval($stat['effort']) >= 1) {
@@ -74,10 +72,10 @@ function index(){
                     'image_url' => $arrays['sprites']['back_default']
                 );
                 Pokemons::create($form_data);
-                $id++;
-
+            
+                $id +=1;
             }
-
+            
         }
 
  
