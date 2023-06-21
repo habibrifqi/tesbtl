@@ -16,7 +16,7 @@ function index(){
     $pp = 'pokemon';
     // for ($i=1; $i <= 200 ; $i++) { 
         # code...
-
+        $arrayyy = [];
 
 
 
@@ -27,6 +27,8 @@ function index(){
         $body = $response->getBody();
         $array = json_decode($body, true);
 
+
+
         // echo "<pre>";print_r($array['results']);die;
         
 
@@ -36,28 +38,34 @@ function index(){
             $statusCodes = $response->getStatusCode(); // Mendapatkan status code dari response
             $bodys = $response->getBody();
             $arrays = json_decode($bodys, true);
-            // echo "<pre>";print_r($arrays["weight"]);die;
 
-            if (floatval($arrays['weight']) >= 100) {
-                            
-            // }
             $url = $item["url"];
             $segments = explode('/', trim($url, '/'));
             $id = array_pop($segments);
             // echo "<pre>";print_r($nilai);die;
+            if ($arrays['weight'] >= 100) {
+                # code...
+            }
 
             $totalStat = 0;
                 foreach ($arrays["stats"] as $stat) {
                     
                     if (floatval($stat['effort']) >= 1) {
+                        # code...
                         $totalStat += floatval($stat['base_stat']);
+                        // echo "<pre>";print_r($totalStat);die;
                     };
+                    # code...
+                    
+                    // echo "<pre>";print_r($id);die;
 
                 }
 
                 foreach ($arrays["abilities"] as $atrbt) {
                     
                     if ($atrbt['is_hidden'] == 0) {
+                        // echo "<pre>";print_r($atrbt['ability']['name']);die;
+
                         $form_dataatr = array(
                             'name' => $atrbt['ability']['name'],
                             'pokemon_id' => $id,
@@ -66,6 +74,17 @@ function index(){
                     };
                    
                 }
+
+
+
+
+
+
+
+
+
+                // echo "<pre>";print_r($arrays["weight"]);die;
+               
                 $form_data = array(
                     'name' => $item['name'],
                     'base_experience' => $arrays['base_experience'],
@@ -75,9 +94,6 @@ function index(){
                 );
                 Pokemons::create($form_data);
                 $id++;
-
-            }
-
         }
 
  
